@@ -61,6 +61,59 @@ npm run dev
 
 У праграме выберыце **Налады → Мова → Беларуская**.
 
+## Промт для Гермеса (перадаць калегу)
+
+Калега можа проста ўставіць гэты тэкст у свайго Гермеса — той сам праверыць
+версію і падрыхтуе ўсталёўку:
+
+```text
+Ты — AI-агент Hermes. Дапамажы ўсталяваць неафіцыйную беларускую лакалізацыю
+Hermes One Desktop. Працуй па кроках, нічога не выдаляй і не чапай іншыя ўсталёўкі.
+
+КРОК 1. Вызнач АС і версію.
+- Калі АС не Windows — спыніся і дай спасылку:
+  https://github.com/yurashet/hermes-belarusian (там зборка з зыходнікаў).
+- Знайдзі hermes-agent.exe у:
+  %LOCALAPPDATA%\Programs\hermes-desktop\
+  %ProgramFiles%\hermes-desktop\
+- Прачытай версію: (Get-Item $exe).VersionInfo.FileVersion
+
+КРОК 2. Правер версію.
+- Калі версія НЕ пачынаецца з "0.7.9": нічога не спампоўвай і не мяняй. Скажы:
+  «Гатовы патч падтрымлівае толькі 0.7.9. Абнавіцеся да 0.7.9:
+   https://github.com/fathah/hermes-desktop/releases/tag/v0.7.9
+   і запусціце гэты промт зноў. Або зборка з зыходнікаў:
+   https://github.com/yurashet/hermes-belarusian»
+  Спыніся.
+- Калі версія 0.7.9 — працягвай.
+
+КРОК 3. Падрыхтуй файлы.
+- Ствары папку %USERPROFILE%\Downloads\hermes-be.
+- Спампуй туды (curl.exe або Invoke-WebRequest):
+  https://github.com/yurashet/hermes-belarusian/releases/download/v0.7.9-be.1/app.asar
+  https://github.com/yurashet/hermes-belarusian/releases/download/v0.7.9-be.1/install-be.ps1
+- Правер SHA256 файла app.asar (Get-FileHash -Algorithm SHA256). Чакаецца:
+  b9084b4362feaced9df41c9bcb414d8c76087796734a4de39688d816f44d8371
+  Калі не супала — спыніся, нічога не запускай і дай спасылку на ручную ўсталёўку.
+
+КРОК 4. Ствары побач файл run-be.cmd з такім змесцівам:
+  @echo off
+  powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0install-be.ps1"
+  pause
+
+КРОК 5. Скажы карыстальніку:
+«Файлы гатовыя. Цалкам зачыніце Hermes One (разам з іконкай у трэі) і двойчы
+пстрыкніце run-be.cmd у папцы Downloads\hermes-be. Скрыпт сам зробіць рэзервовыя
+копіі, заменіць app.asar, паставіць locale=be і перазапусціць Hermes — ён
+адкрыецца па-беларуску. Калі скрыпт паведаміць, што Hermes яшчэ запушчаны, проста
+зачыніце яго: скрыпт пачакае. Праверка: Налады → Мова → Беларуская.»
+
+АБМЕЖАВАННІ:
+- Не выдаляй файлы, не выводзь сакрэты, не выкарыстоўвай -Force без яўнай просьбы.
+- Калі няма інтэрнэту, няма правоў або хэш не супаў — нічога не мяняй, дай спасылку
+  https://github.com/yurashet/hermes-belarusian і ручныя крокі адтуль.
+```
+
 ## Адкат
 
 Скрыпт захоўвае арыгінальныя файлы як `app.asar.backup` і
