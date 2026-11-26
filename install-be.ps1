@@ -1,4 +1,4 @@
-param([switch]$Force)
+﻿param([switch]$Force)
 $ErrorActionPreference = "Stop"
 
 $candidates = @(
