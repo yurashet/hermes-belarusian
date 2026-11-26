@@ -33,12 +33,16 @@ Get-FileHash .\app.asar -Algorithm SHA256
 
 ## Адкат
 
-Скрыпт захоўвае арыгінал як `app.asar.backup` у
-`%LOCALAPPDATA%\Programs\hermes-desktop\resources\`. Каб вярнуць англійскую
+Скрыпт захоўвае арыгіналы як `app.asar.backup` у
+`%LOCALAPPDATA%\Programs\hermes-desktop\resources\` і як
+`desktop.json.backup` у `%LOCALAPPDATA%\hermes\`. Каб вярнуць англійскую
 мову (пры закрытай праграме):
 
 ```powershell
 Copy-Item "$env:LOCALAPPDATA\Programs\hermes-desktop\resources\app.asar.backup" "$env:LOCALAPPDATA\Programs\hermes-desktop\resources\app.asar" -Force
+if (Test-Path "$env:LOCALAPPDATA\hermes\desktop.json.backup") {
+  Copy-Item "$env:LOCALAPPDATA\hermes\desktop.json.backup" "$env:LOCALAPPDATA\hermes\desktop.json" -Force
+}
 ```
 
 ## Заўвагі

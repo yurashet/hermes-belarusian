@@ -63,11 +63,14 @@ npm run dev
 
 ## Адкат
 
-Скрыпт захоўвае арыгінальны архіў як `app.asar.backup` побач з усталяваным.
-Каб вярнуць англійскую мову (пры закрытай праграме):
+Скрыпт захоўвае арыгінальныя файлы як `app.asar.backup` і
+`desktop.json.backup`. Каб вярнуць англійскую мову (пры закрытай праграме):
 
 ```powershell
 Copy-Item "$env:LOCALAPPDATA\Programs\hermes-desktop\resources\app.asar.backup" "$env:LOCALAPPDATA\Programs\hermes-desktop\resources\app.asar" -Force
+if (Test-Path "$env:LOCALAPPDATA\hermes\desktop.json.backup") {
+  Copy-Item "$env:LOCALAPPDATA\hermes\desktop.json.backup" "$env:LOCALAPPDATA\hermes\desktop.json" -Force
+}
 ```
 
 ## Што перакладзена
